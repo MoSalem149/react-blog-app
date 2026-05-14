@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import api from "../api/axios";
-import { UserContext } from "../providers/UserProvider";
+import { UserContext } from "../providers/UserContext";
 import { toast } from "react-toastify";
 
 export default function Login() {

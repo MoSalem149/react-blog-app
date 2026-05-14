@@ -1,19 +1,17 @@
-import { createContext, useState, useEffect } from "react";
-
-export const UserContext = createContext();
+import { useState } from "react";
+import { UserContext } from "./UserContext";
 
 export default function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  // Check if user is logged in on mount
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
+    // Initialize state from localStorage
     const token = localStorage.getItem("token");
     const userData = localStorage.getItem("user");
-    
+
     if (token && userData) {
-      setUser(JSON.parse(userData));
+      return JSON.parse(userData);
     }
-  }, []);
+    return null;
+  });
 
   const login = (userData, token) => {
     localStorage.setItem("token", token);
