@@ -1,6 +1,16 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useContext } from "react";
+import { UserContext } from "../providers/UserProvider";
 
 export default function Navbar() {
+  const { user, logout } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <nav className="navbar bg-base-100 shadow-lg">
       <div className="container mx-auto">
@@ -14,9 +24,20 @@ export default function Navbar() {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <span className="font-semibold">Hi, {user.name}</span>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
