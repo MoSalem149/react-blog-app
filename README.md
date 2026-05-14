@@ -1,16 +1,115 @@
-# React + Vite
+# React Blog Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-featured blog application built with React, featuring user authentication, CRUD operations, and a beautiful UI.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- ✅ User Authentication (Register/Login/Logout)
+- ✅ Create, Read, Update, Delete blog posts
+- ✅ Image preview in post form
+- ✅ Responsive design with Tailwind CSS & DaisyUI
+- ✅ Toast notifications
+- ✅ Protected routes
+- ✅ Only post owners can edit/delete their posts
+- ✅ Floating action button for quick post creation
 
-## React Compiler
+## 🛠️ Technologies Used
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 19, Vite
+- **Routing**: React Router v7
+- **Styling**: Tailwind CSS, DaisyUI
+- **HTTP Client**: Axios
+- **Backend**: json-server-auth (fake REST API)
+- **Notifications**: react-toastify
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/react-blog-app.git
+cd react-blog-app
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create `db.json` file in the root directory:
+
+```json
+{
+  "users": [],
+  "posts": []
+}
+```
+
+## 🚀 Running Locally
+
+You need to run both frontend and backend:
+
+### Terminal 1 - Frontend:
+
+```bash
+npm run dev
+```
+
+Frontend runs on: `http://localhost:5173`
+
+### Terminal 2 - Backend:
+
+```bash
+npm run backend
+```
+
+Backend runs on: `http://localhost:3000`
+
+## 📝 Usage
+
+1. **Register**: Create a new account
+2. **Login**: Sign in with your credentials
+3. **Create Post**: Click the floating "+" button (bottom-right)
+4. **Edit Post**: Click "Edit" on your own posts
+5. **Delete Post**: Click "Delete" on your own posts
+
+## 🌐 API Endpoints
+
+- `POST /register` - Register new user
+- `POST /login` - Login user
+- `GET /posts` - Get all posts
+- `POST /posts` - Create new post (requires auth)
+- `PUT /posts/:id` - Update post (requires auth)
+- `DELETE /posts/:id` - Delete post (requires auth)
+
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](screenshots/home.png)
+
+### Login Page
+
+![Login Page](screenshots/login.png)
+
+### Create Post
+
+![Create Post](screenshots/create-post.png)
+
+## 👨‍💻 Author
+
+**Your Name**
+
+- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
+- Email: your.email@example.com
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- Final project for React Course
+- Instructor: Ahmed Zaghloul
+- Course: [React Course - Mansoura]
