@@ -27,7 +27,7 @@ A modern, full-featured blog application built with React, featuring user authen
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/react-blog-app.git
+git clone https://github.com/MoSalem149/react-blog-app.git
 cd react-blog-app
 ```
 
@@ -83,33 +83,36 @@ Backend runs on: `http://localhost:3000`
 - `PUT /posts/:id` - Update post (requires auth)
 - `DELETE /posts/:id` - Delete post (requires auth)
 
-## 📸 Screenshots
-
-### Home Page
-
-![Home Page](screenshots/home.png)
-
-### Login Page
-
-![Login Page](screenshots/login.png)
-
-### Create Post
-
-![Create Post](screenshots/create-post.png)
-
 ## 👨‍💻 Author
 
-**Your Name**
+**Mohamed Salem**
 
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
+- GitHub: [@MoSalem149E](https://github.com/MoSalem149E)
 - Email: your.email@example.com
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
 - Final project for React Course
 - Instructor: Ahmed Zaghloul
 - Course: [React Course - Mansoura]
+
+## Deployment Bonus
+
+### Frontend (Vercel)
+1. Push the project to GitHub.
+2. Import the repository into Vercel.
+3. Set the build command to `npm run build`.
+4. Set the output directory to `dist`.
+5. Deploy the project.
+
+### Backend Hosting
+The backend uses `json-server-auth`, so deploy it separately on a Node.js host such as Render, Railway, or Cyclic.
+
+Recommended start command:
+```bash
+npm install
+npm run backend
+```
+
+After deployment, update `src/api/axios.js` with the hosted backend URL.
+

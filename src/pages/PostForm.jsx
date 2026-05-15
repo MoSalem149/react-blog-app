@@ -16,10 +16,8 @@ export default function PostForm() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // Determine if in edit mode based on URL params
   const isEditMode = id && id !== "new";
 
-  // Check if user is logged in
   useEffect(() => {
     if (!user) {
       toast.error("Please login to create or edit posts");
@@ -27,7 +25,6 @@ export default function PostForm() {
     }
   }, [user, navigate]);
 
-  // Fetch post data if editing
   useEffect(() => {
     if (isEditMode) {
       const fetchPost = async () => {
@@ -35,7 +32,6 @@ export default function PostForm() {
           const res = await api.get(`/posts/${id}`);
           const post = res.data;
 
-          // Check if user owns this post
           if (post.userId !== user?.id) {
             toast.error("You can only edit your own posts");
             navigate("/");
@@ -76,11 +72,9 @@ export default function PostForm() {
 
     try {
       if (isEditMode) {
-        // Update existing post
         await api.put(`/posts/${id}`, formData);
         toast.success("Post updated successfully!");
       } else {
-        // Create new post
         const newPost = {
           ...formData,
           authorName: user.name,
@@ -101,99 +95,71 @@ export default function PostForm() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title text-2xl mb-4">
-              {isEditMode ? "Edit Post" : "Create New Post"}
-            </h2>
+    <div className="px-6 py-10">
+      <div className="mx-auto max-w-3xl rounded-3xl border border-neutral-300 bg-white p-10 shadow-sm">
+        <h2 className="mb-12 text-center text-6xl font-black text-neutral-800">
+          {isEditMode ? "Edit Post" : "New Post"}
+        </h2>
 
-            <form onSubmit={handleSubmit}>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Title</span>
-                </label>
-                <input
-                  type="text"
-                  name="title"
-                  placeholder="Enter post title"
-                  className="input input-bordered"
-                  value={formData.title}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-10">
+          <input
+            type="text"
+            name="title"
+            placeholder="Title"
+            className="w-full rounded-2xl border border-neutral-300 px-6 py-5 text-xl outline-none transition focus:border-neutral-500"
+            value={formData.title}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="form-control mt-4">
-                <label className="label">
-                  <span className="label-text">Description</span>
-                </label>
-                <textarea
-                  name="description"
-                  placeholder="Enter post description"
-                  className="textarea textarea-bordered h-32"
-                  value={formData.description}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+          <textarea
+            name="description"
+            placeholder="Description"
+            className="h-36 w-full rounded-2xl border border-neutral-300 px-6 py-5 text-xl outline-none transition focus:border-neutral-500"
+            value={formData.description}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="form-control mt-4">
-                <label className="label">
-                  <span className="label-text">Image URL</span>
-                </label>
-                <input
-                  type="url"
-                  name="imageUrl"
-                  placeholder="Enter image URL"
-                  className="input input-bordered"
-                  value={formData.imageUrl}
-                  onChange={handleChange}
-                  required
-                />
-                {formData.imageUrl && (
-                  <div className="mt-4">
-                    <label className="label">
-                      <span className="label-text">Image Preview</span>
-                    </label>
-                    <img
-                      src={formData.imageUrl}
-                      alt="Preview"
-                      className="w-full h-48 object-cover rounded-lg"
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
+          <input
+            type="url"
+            name="imageUrl"
+            placeholder="Image URL"
+            className="w-full rounded-2xl border border-neutral-300 px-6 py-5 text-xl outline-none transition focus:border-neutral-500"
+            value={formData.imageUrl}
+            onChange={handleChange}
+            required
+          />
 
-              <div className="form-control mt-6 flex flex-row gap-4">
-                <button
-                  type="submit"
-                  className="btn btn-primary flex-1"
-                  disabled={loading}
-                >
-                  {loading ? (
-                    <span className="loading loading-spinner"></span>
-                  ) : isEditMode ? (
-                    "Update Post"
-                  ) : (
-                    "Create Post"
-                  )}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => navigate("/")}
-                  className="btn btn-ghost flex-1"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
+          {formData.imageUrl && (
+            <img
+              src={formData.imageUrl}
+              alt="Preview"
+              className="h-64 w-full rounded-3xl border border-neutral-200 object-cover"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          )}
+
+          <div className="flex flex-col gap-4 pt-8 sm:flex-row sm:justify-center">
+            <button
+              type="submit"
+              className="rounded-2xl bg-neutral-200 px-14 py-4 text-3xl font-bold text-neutral-800 transition hover:-translate-y-1"
+              disabled={loading}
+            >
+              {loading ? "Loading..." : isEditMode ? "Update Post" : "Add Post"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("/")}
+              className="rounded-2xl border border-neutral-300 px-14 py-4 text-3xl font-bold text-neutral-600 transition hover:bg-neutral-100"
+            >
+              Cancel
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

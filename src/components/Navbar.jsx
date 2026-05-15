@@ -12,33 +12,34 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar bg-base-100 shadow-lg">
-      <div className="container mx-auto">
-        <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">
-            📝 My Blog
-          </Link>
-        </div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            {user ? (
-              <>
-                <li>
-                  <span className="font-semibold">Hi, {user.name}</span>
-                </li>
-                <li>
-                  <button onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            ) : (
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            )}
-          </ul>
+    <nav className="px-6 py-8">
+      <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <Link
+          to="/"
+          className="text-5xl font-black tracking-tight text-neutral-800"
+        >
+          Blog
+        </Link>
+
+        <div className="flex items-center gap-4 text-lg font-medium text-neutral-700">
+          {user ? (
+            <>
+              <span className="hidden md:block">Hi {user.name}</span>
+              <button
+                onClick={handleLogout}
+                className="rounded-2xl border border-neutral-400 bg-white px-6 py-3 shadow-sm transition hover:-translate-y-1"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="rounded-2xl border border-neutral-400 bg-white px-6 py-3 shadow-sm transition hover:-translate-y-1"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

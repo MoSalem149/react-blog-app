@@ -11,7 +11,6 @@ export default function Home() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
@@ -28,7 +27,6 @@ export default function Home() {
     fetchPosts();
   }, []);
 
-  // Delete post
   const handleDelete = async (postId) => {
     try {
       await api.delete(`/posts/${postId}`);
@@ -39,60 +37,35 @@ export default function Home() {
     }
   };
 
-  // Navigate to add post
   const handleAddPost = () => {
     navigate("/post/new");
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">All Blog Posts</h1>
-      </div>
-
+    <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 pb-16">
       {loading ? (
-        <div className="flex justify-center items-center min-h-100">
-          <span className="loading loading-spinner loading-lg"></span>
+        <div className="flex min-h-[50vh] items-center justify-center">
+          <span className="h-16 w-16 animate-spin rounded-full border-4 border-neutral-300 border-t-neutral-700"></span>
+        </div>
+      ) : posts.length === 0 ? (
+        <div className="rounded-3xl border border-dashed border-neutral-300 bg-white py-20 text-center shadow-sm">
+          <p className="text-2xl text-neutral-500">
+            No posts yet. Create your first post!
+          </p>
         </div>
       ) : (
-        <>
-          {posts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-xl text-gray-500">
-                No posts yet. Create your first post!
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post) => (
-                <PostCard key={post.id} post={post} onDelete={handleDelete} />
-              ))}
-            </div>
-          )}
-        </>
+        posts.map((post) => (
+          <PostCard key={post.id} post={post} onDelete={handleDelete} />
+        ))
       )}
 
-      {/* Floating Add Button - Only show if logged in */}
       {user && (
         <button
           onClick={handleAddPost}
-          className="btn btn-circle btn-primary btn-lg fixed bottom-8 right-8 shadow-lg"
+          className="fixed bottom-8 right-8 flex h-24 w-24 items-center justify-center rounded-full border border-neutral-700 bg-neutral-700 text-6xl font-light text-white shadow-2xl transition hover:scale-105"
           title="Add New Post"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
+          +
         </button>
       )}
     </div>
